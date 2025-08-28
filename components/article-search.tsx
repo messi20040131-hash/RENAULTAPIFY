@@ -120,120 +120,170 @@ export default function ArticleSearch({ onArticleSelect, initialSearchQuery = ""
   }
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Search className="h-5 w-5 text-primary" />
-            Recherche par Numéro d'Article
+    <div className="space-y-8">
+      <Card className="border-2 border-primary/10 shadow-lg bg-gradient-to-br from-background to-muted/20">
+        <CardHeader className="pb-6">
+          <CardTitle className="flex items-center justify-center gap-3 text-2xl font-bold">
+            <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
+              <Search className="h-5 w-5" />
+            </div>
+            <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              Recherche par Numéro d'Article
+            </span>
           </CardTitle>
-          <CardDescription>Recherchez des pièces auto en utilisant le numéro d'article ou de référence</CardDescription>
+          <CardDescription className="text-center text-lg mt-3">
+            Recherchez des pièces auto en utilisant le numéro d'article ou de référence
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-2">
-            <Input
-              placeholder="Entrez le numéro d'article (ex: 2250038)"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyPress={handleKeyPress}
-              className="flex-1"
-            />
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1 relative group">
+              <Input
+                placeholder="Entrez le numéro d'article (ex: 2250038, BP4W-14-302, etc.)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={handleKeyPress}
+                className="h-12 sm:h-14 pl-4 sm:pl-6 pr-4 sm:pr-6 text-base sm:text-lg font-medium rounded-xl border-2 placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 hover:border-primary/50"
+                aria-label="Numéro d'article à rechercher"
+                aria-describedby="search-description"
+              />
+              <div id="search-description" className="sr-only">
+                Entrez un numéro d'article ou une référence pour rechercher des pièces automobiles
+              </div>
+            </div>
             <Button
               onClick={handleSearch}
               disabled={isLoading || !searchQuery.trim()}
-              className="bg-primary hover:bg-primary/90"
+              className="h-12 sm:h-14 px-6 sm:px-8 bg-primary hover:bg-primary/90 rounded-xl font-semibold text-base sm:text-lg transition-all hover:scale-105 disabled:hover:scale-100 w-full sm:w-auto"
+              aria-label="Lancer la recherche"
+              type="submit"
             >
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
-              Rechercher
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin mr-2" />
+                  <span className="hidden sm:inline">Recherche...</span>
+                  <span className="sm:hidden">...</span>
+                </>
+              ) : (
+                <>
+                  <Search className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                  Rechercher
+                </>
+              )}
             </Button>
           </div>
         </CardContent>
       </Card>
 
       {hasSearched && (
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-2xl font-bold text-foreground">
               Résultats de recherche
-              {resultCount > 0 && (
-                <Badge variant="secondary" className="ml-2">
-                  {resultCount} article{resultCount > 1 ? "s" : ""} trouvé{resultCount > 1 ? "s" : ""}
-                </Badge>
-              )}
             </h3>
+            {resultCount > 0 && (
+              <Badge variant="secondary" className="text-base px-4 py-2 bg-primary/10 text-primary border-primary/20">
+                {resultCount} article{resultCount > 1 ? "s" : ""} trouvé{resultCount > 1 ? "s" : ""}
+              </Badge>
+            )}
           </div>
 
           {searchResults.length === 0 ? (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-8 text-center">
-                <Package className="h-12 w-12 text-muted-foreground mb-4" />
-                <h3 className="text-lg font-medium mb-2">Aucun article trouvé</h3>
-                <p className="text-muted-foreground">
+            <Card className="border-2 border-dashed border-muted-foreground/30">
+              <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-20 h-20 bg-muted/60 rounded-full flex items-center justify-center mb-6">
+                  <Package className="h-10 w-10 text-muted-foreground" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Aucun article trouvé</h3>
+                <p className="text-muted-foreground text-lg mb-4 max-w-md">
                   Aucun article ne correspond au numéro "{searchQuery}". Vérifiez le numéro et réessayez.
                 </p>
+                <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                  <Button variant="outline" onClick={() => setSearchQuery("")} className="rounded-xl">
+                    Nouvelle recherche
+                  </Button>
+                  <Button variant="ghost" className="rounded-xl">
+                    Parcourir par véhicule
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ) : (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {searchResults.map((article) => (
-                <Card key={article.articleId} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="space-y-3">
-                      <div className="aspect-square bg-muted rounded-lg overflow-hidden">
+                <Card key={article.articleId} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-transparent hover:border-primary/20 overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="space-y-4">
+                      {/* Product Image */}
+                      <div className="aspect-square bg-gradient-to-br from-muted/50 to-muted/80 relative overflow-hidden">
                         <RobustProductImage
                           s3ImageLink={article.s3ImageLink}
                           imageLink={article.imageLink}
                           imageMedia={article.imageMedia}
                           alt={article.articleProductName}
-                          className="w-full h-full"
+                          className="w-full h-full group-hover:scale-110 transition-transform duration-300"
                           size="xl"
                           showDebug={false}
                         />
+                        <div className="absolute top-3 right-3">
+                          <Badge className="bg-background/90 text-foreground border">
+                            Disponible
+                          </Badge>
+                        </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <h4 className="font-medium text-sm line-clamp-2">{article.articleProductName}</h4>
+                      <div className="p-4 space-y-4">
+                        {/* Product Name */}
+                        <h4 className="font-bold text-base line-clamp-2 group-hover:text-primary transition-colors leading-tight">
+                          {article.articleProductName}
+                        </h4>
 
-                        <div className="space-y-1 text-sm text-muted-foreground">
-                          <div className="flex justify-between">
-                            <span>Référence:</span>
-                            <span className="font-mono text-xs bg-muted px-2 py-1 rounded">{article.articleNo}</span>
+                        {/* Product Details */}
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-muted-foreground font-medium">Référence</span>
+                            <span className="font-mono text-xs bg-primary/10 text-primary px-3 py-1 rounded-full font-bold">
+                              {article.articleNo}
+                            </span>
                           </div>
 
-                          <div className="flex justify-between">
-                            <span>Fournisseur:</span>
-                            <Badge variant="outline" className="text-xs">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-muted-foreground font-medium">Fournisseur</span>
+                            <Badge variant="outline" className="text-xs font-semibold border-primary/20">
                               {article.supplierName}
                             </Badge>
                           </div>
                         </div>
 
-                        {/* Price and Actions */}
-                        <div className="space-y-2 mt-3">
-                          <div className="text-lg font-bold text-primary text-center">
-                            29,99 TND
+                        {/* Price */}
+                        <div className="text-center py-3 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl">
+                          <div className="text-2xl font-bold text-primary">
+                            29,99 <span className="text-lg">TND</span>
                           </div>
-                          <div className="grid grid-cols-2 gap-2">
+                          <div className="text-xs text-muted-foreground">Prix TTC</div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="grid grid-cols-2 gap-3">
+                          <Button
+                            onClick={() => handleAddToCart(article)}
+                            className="w-full transition-all hover:scale-105 rounded-xl"
+                            size="sm"
+                            variant="outline"
+                          >
+                            <Plus className="h-4 w-4 mr-2" />
+                            Panier
+                          </Button>
+                          {onArticleSelect && (
                             <Button
-                              onClick={() => handleAddToCart(article)}
-                              className="w-full transition-colors"
+                              onClick={() => onArticleSelect(article.articleId)}
+                              className="w-full transition-all hover:scale-105 rounded-xl"
                               size="sm"
-                              variant="outline"
                             >
-                              <Plus className="h-4 w-4 mr-1" />
-                              Panier
+                              <Eye className="h-4 w-4 mr-2" />
+                              Détails
                             </Button>
-                            {onArticleSelect && (
-                              <Button
-                                onClick={() => onArticleSelect(article.articleId)}
-                                className="w-full transition-colors"
-                                size="sm"
-                              >
-                                <Eye className="h-4 w-4 mr-1" />
-                                Détails
-                              </Button>
-                            )}
-                          </div>
+                          )}
                         </div>
                       </div>
                     </div>

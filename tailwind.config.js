@@ -17,6 +17,20 @@ module.exports = {
     },
     extend: {
       colors: {
+        // Renault brand colors
+        renault: {
+          yellow: "#FFD300",
+        },
+        // Custom color palette
+        'renault-yellow': '#FFD300',
+        'renault-black': '#000000',
+        'renault-white': '#FFFFFF',
+        'renault-light-gray': '#F5F5F5',
+        'renault-dark-gray': '#333333',
+        'renault-off-white': '#E0E0E0',
+        'renault-dark-charcoal': '#121212',
+        'renault-mid-gray': '#2C2C2C',
+        'renault-pure-black': '#000000',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -1,6 +1,6 @@
 # Database Setup Guide
 
-This guide will help you set up the Prisma database for the Zorraga Car Parts e-commerce application.
+This guide will help you set up the Prisma database for the Ste Piéces Auto Renault e-commerce application.
 
 ## 🗄️ Database Schema Overview
 

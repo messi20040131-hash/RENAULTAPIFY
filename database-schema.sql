@@ -1,5 +1,5 @@
--- Database Schema for Zorraga Car Parts E-commerce
--- This schema is designed for future integration with the PostgreSQL database
+-- Database Schema for Ste Piéces Auto Renault E-commerce
+-- This schema provides a comprehensive structure for managing automotive parts sales
 
 -- Users table for customer accounts
 CREATE TABLE users (

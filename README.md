@@ -1,40 +1,31 @@
-# Zorraga Car Parts - E-commerce Platform
+# Ste Piéces Auto Renault - E-commerce Platform
 
-A professional automotive parts search and e-commerce platform powered by TecDoc database integration.
+A modern, responsive e-commerce platform built with Next.js 14, TypeScript, and Tailwind CSS, designed specifically for automotive parts sales with Renault branding.
 
 ## Features
 
-### 🔍 Parts Search
-- **Vehicle-based search**: Find compatible parts by selecting manufacturer, model, and year
-- **Reference-based search**: Search by article number or reference
-- **Real-time filtering**: Filter by supplier and search terms
-- **Professional TecDoc integration**: Access to comprehensive automotive parts database
-
-### 🛒 E-commerce Functionality
-- **Shopping cart**: Add items to cart from search results and article details
-- **Cart management**: Update quantities, remove items, view cart total
-- **Checkout process**: Complete order with shipping information
-- **Mock pricing**: All articles currently priced at €29.99 for demonstration
-
-### 🎨 Modern UI/UX
-- **Responsive design**: Works seamlessly on desktop and mobile devices
-- **Dark/Light theme**: Toggle between themes
-- **Professional styling**: Clean, modern interface with smooth animations
-- **Accessibility**: Screen reader friendly with proper ARIA labels
+- **Modern Tech Stack**: Built with Next.js 14, TypeScript, and Tailwind CSS
+- **Responsive Design**: Mobile-first approach with beautiful UI components
+- **Dark/Light Mode**: Theme switching with Renault brand colors
+- **Search Functionality**: Advanced search with TecDoc integration
+- **Shopping Cart**: Persistent cart with local storage
+- **Admin Panel**: Order management and site administration
+- **Renault Branding**: Custom color palette and Renault logos
 
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 18+ 
 - pnpm (recommended) or npm
-- PostgreSQL database (for future database integration)
+- PostgreSQL database
 
 ### Installation
 
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd zorraga-car-parts
+cd ste-pieces-auto-renault
 ```
 
 2. Install dependencies:
@@ -159,7 +150,7 @@ See `database-schema.sql` for complete schema definition.
 
 ## License
 
-This project is proprietary software for Zorraga Pièces Auto.
+This project is proprietary software for Ste Piéces Auto Renault.
 
 ## Support
 
