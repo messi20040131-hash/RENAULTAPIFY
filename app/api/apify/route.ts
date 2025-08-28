@@ -3,17 +3,19 @@ import { NextRequest, NextResponse } from 'next/server'
 // Force dynamic rendering for this API route
 export const dynamic = 'force-dynamic'
 
-const APIFY_API_TOKEN = process.env.APIFY_API_TOKEN
-const ACTOR_ID = process.env.APIFY_ACTOR_ID || "Zt16dqMI2yN7Igggl"
-
-if (!APIFY_API_TOKEN) {
-  throw new Error('APIFY_API_TOKEN environment variable is required')
-}
-
-const BASE_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}`
-
 export async function POST(request: NextRequest) {
   try {
+    const APIFY_API_TOKEN = process.env.APIFY_API_TOKEN
+    const ACTOR_ID = process.env.APIFY_ACTOR_ID || "Zt16dqMI2yN7Igggl"
+
+    if (!APIFY_API_TOKEN) {
+      return NextResponse.json(
+        { error: 'APIFY_API_TOKEN environment variable is required' },
+        { status: 500 }
+      )
+    }
+
+    const BASE_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}`
     const input = await request.json()
     
     console.log("[v0] Starting Apify actor with input:", input)
